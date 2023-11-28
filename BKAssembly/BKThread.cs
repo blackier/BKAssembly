@@ -43,7 +43,7 @@ public class BKThread : IDisposable
     {
         while (!_isStop)
         {
-            while (_taskQueue.TryDequeue(out Action task))
+            while (!_isStop && _taskQueue.TryDequeue(out Action? task))
                 task();
             _waitEvent.WaitOne();
         }
@@ -53,6 +53,11 @@ public class BKThread : IDisposable
     {
         _taskQueue.Enqueue(task);
         _waitEvent.Set();
+    }
+
+    public void ClearTask()
+    {
+        _taskQueue.Clear();
     }
 
     public bool IsIdle()

@@ -9,14 +9,14 @@ namespace BKAssembly.Extensions;
 
 public static class IEnumerableExtensions
 {
-    public static bool IsEmpty<TSource>(this IEnumerable<TSource> source)
+    public static bool IsNullOrEmpty<TSource>(this IEnumerable<TSource> source)
     {
-        return source.Count() == 0;
+        return source == null || source.Count() == 0;
     }
 
-    public static bool IsNotEmpty<TSource>(this IEnumerable<TSource> source)
+    public static bool IsNotNullOrEmpty<TSource>(this IEnumerable<TSource> source)
     {
-        return source.Count() > 0;
+        return source != null && source.Count() > 0;
     }
 
     public static bool TryGet<TSource>(this IEnumerable<TSource> source, int index, [MaybeNullWhen(false)] out TSource value)

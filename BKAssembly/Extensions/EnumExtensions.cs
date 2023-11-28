@@ -24,6 +24,18 @@ public static class EnumExtensions
         }
     }
 
+    public static T TryParse<T>(int value, T defaultValue) where T : Enum
+    {
+        if (Enum.IsDefined(typeof(T), value))
+        {
+            return (T)Enum.ToObject(typeof(T), value);
+        }
+        else
+        {
+            return defaultValue;
+        }
+    }
+
     public static int ToInt(this Enum value)
     {
         return value.GetHashCode();
