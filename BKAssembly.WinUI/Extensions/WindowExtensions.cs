@@ -1,7 +1,9 @@
 ﻿using System;
 using Microsoft.UI;
+using Microsoft.UI.Input;
 using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
+using WinRT.Interop;
 
 namespace BKAssembly.WinUI.Extensions;
 
@@ -28,4 +30,35 @@ public static class WindowExtensions
     {
         window.AppWindow.Hide();
     }
+
+    public static double DpiScale(this Window window)
+    {
+        IntPtr hWnd = WindowNative.GetWindowHandle(window);
+        WindowId wndId = Win32Interop.GetWindowIdFromWindow(hWnd);
+        DisplayArea displayArea = DisplayArea.GetFromWindowId(wndId, DisplayAreaFallback.Primary);
+        IntPtr hMonitor = Win32Interop.GetMonitorFromDisplayId(displayArea.DisplayId);
+
+        // Get DPI.
+        int result = BKWindowsAPI.GetDpiForMonitor(hMonitor, BKWindowsAPI.Monitor_DPI_Type.MDT_Default, out uint dpiX, out uint _);
+        if (result != 0)
+        {
+            return 1.0;
+        }
+
+        uint scaleFactorPercent = (uint)(((long)dpiX * 100 + (96 >> 1)) / 96);
+        return scaleFactorPercent / 100.0;
+    }
+
+    public static void SetClickThroughRegions(this Window window, Windows.Graphics.RectInt32[] rects)
+    {
+        var nonClientInputSrc = InputNonClientPointerSource.GetForWindowId(window.AppWindow.Id);
+        nonClientInputSrc.SetRegionRects(NonClientRegionKind.Passthrough, rects);
+    }
+
+    public static void ClearClickThroughRegions(this Window window)
+    {
+        var nonClientInputSrc = InputNonClientPointerSource.GetForWindowId(window.AppWindow.Id);
+        nonClientInputSrc.ClearRegionRects(NonClientRegionKind.Passthrough);
+    }
+
 }

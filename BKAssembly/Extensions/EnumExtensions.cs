@@ -16,6 +16,7 @@ public static class EnumExtensions
             yield return (T)item;
         }
     }
+
     public static IEnumerable<T> GetTypeList<T>(this T value) where T : Enum
     {
         foreach (object item in Enum.GetValues(typeof(T)))

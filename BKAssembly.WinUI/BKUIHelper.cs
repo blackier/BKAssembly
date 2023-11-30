@@ -17,43 +17,4 @@ namespace BKAssembly.WinUI;
 
 public class BKUIHelper
 {
-    public static double GetScaleAdjustment(Window window)
-    {
-        IntPtr hWnd = WindowNative.GetWindowHandle(window);
-        WindowId wndId = Win32Interop.GetWindowIdFromWindow(hWnd);
-        DisplayArea displayArea = DisplayArea.GetFromWindowId(wndId, DisplayAreaFallback.Primary);
-        IntPtr hMonitor = Win32Interop.GetMonitorFromDisplayId(displayArea.DisplayId);
-
-        // Get DPI.
-        int result = BKWindowsAPI.GetDpiForMonitor(hMonitor, BKWindowsAPI.Monitor_DPI_Type.MDT_Default, out uint dpiX, out uint _);
-        if (result != 0)
-        {
-            throw new Exception("Could not get DPI for monitor.");
-        }
-
-        uint scaleFactorPercent = (uint)(((long)dpiX * 100 + (96 >> 1)) / 96);
-        return scaleFactorPercent / 100.0;
-    }
-
-    // get dpi for an element
-    public static double GetRasterizationScaleForElement(UIElement element)
-    {
-        if (element.XamlRoot != null)
-        {
-            return element.XamlRoot.RasterizationScale;
-        }
-        return 1.0;
-    }
-
-    public static void SetClickThroughRegions(Windows.Graphics.RectInt32[] rects, AppWindow appWindow)
-    {
-        var nonClientInputSrc = InputNonClientPointerSource.GetForWindowId(appWindow.Id);
-        nonClientInputSrc.SetRegionRects(NonClientRegionKind.Passthrough, rects);
-    }
-
-    public static void ClearClickThroughRegions(AppWindow appWindow)
-    {
-        var nonClientInputSrc = InputNonClientPointerSource.GetForWindowId(appWindow.Id);
-        nonClientInputSrc.ClearRegionRects(NonClientRegionKind.Passthrough);
-    }
 }

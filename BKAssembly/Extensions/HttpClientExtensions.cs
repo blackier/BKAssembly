@@ -8,15 +8,16 @@ namespace BKAssembly.Extensions;
 
 public static class HttpClientExtensions
 {
-    public  static bool TrySend<T>(this HttpClient httpClient,HttpRequestMessage request, out HttpResponseMessage response, out T result)
+    public static bool TrySend<T>(this HttpClient httpClient, HttpRequestMessage request, out HttpResponseMessage response, out T? result)
     {
         try
         {
             response = httpClient.Send(request);
         }
-        catch {
+        catch
+        {
             response = null;
-            result = default(T);
+            result = default;
             return false;
         }
         try
@@ -26,7 +27,7 @@ public static class HttpClientExtensions
         }
         catch
         {
-            result = default(T);
+            result = default;
             return false;
         }
     }
