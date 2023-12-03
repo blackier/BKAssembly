@@ -39,7 +39,6 @@ public static class EnumExtensions
 
     public static T TryParse<T>(string value, T defaultValue) where T : Enum
     {
-
         if (Enum.IsDefined(typeof(T), value))
         {
             return (T)Enum.Parse(typeof(T), value);

@@ -17,4 +17,23 @@ public static class StringExtensions
     {
         return !string.IsNullOrEmpty(str);
     }
+
+    public static int ToInt(this string str)
+    {
+        int result = 0;
+        int.TryParse(str, out result);
+        return result;
+    }
+
+    public static float ToFloat(this string str)
+    {
+        float result = 0;
+        float.TryParse(str, out result);
+        return result;
+    }
+
+    public static T ToEnum<T>(this string str, T defaultValue) where T : Enum
+    {
+        return EnumExtensions.TryParse(str, defaultValue);
+    }
 }
