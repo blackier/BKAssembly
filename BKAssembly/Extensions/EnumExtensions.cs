@@ -51,6 +51,8 @@ public static class EnumExtensions
 
     public static int ToInt(this Enum value)
     {
+        if(value == null)
+            return 0;
         return value.GetHashCode();
     }
 }
