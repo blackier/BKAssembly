@@ -22,7 +22,7 @@ public static class UIElementExtensions
         if (lParam == IntPtr.Zero)
             return false;
 
-        var mousePosScreen = new Point(WindowsExtensions.Get_X_LParam(lParam), WindowsExtensions.Get_Y_LParam(lParam));
+        var mousePosScreen = new Point(lParam.Get_X_Param(), lParam.Get_Y_Param());
         var bounds = new Rect(new Point(), element.RenderSize);
         var mousePosRelative = element.PointFromScreen(mousePosScreen);
         return bounds.Contains(mousePosRelative);

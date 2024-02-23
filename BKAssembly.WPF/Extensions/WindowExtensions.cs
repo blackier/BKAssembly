@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Interop;
 using System.Windows.Media;
 
 namespace BKAssembly.WPF.Extensions;
 
-public static class WindowsExtensions
+public static class WindowExtensions
 {
     public static double ScreenScaling()
     {
@@ -18,13 +19,9 @@ public static class WindowsExtensions
         return m.M11;
     }
 
-    public static int Get_X_LParam(IntPtr lParam)
+    public static IntPtr Handle(this Window value)
     {
-        return (short)(lParam.ToInt32() & 0xFFFF);
-    }
-
-    public static int Get_Y_LParam(IntPtr lParam)
-    {
-        return (short)(lParam.ToInt32() >> 16);
+        WindowInteropHelper wih = new(value);
+        return wih.EnsureHandle();
     }
 }
