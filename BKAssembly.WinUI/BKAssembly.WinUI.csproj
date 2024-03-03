@@ -1,10 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFramework>net7.0-windows10.0.19041.0</TargetFramework>
+		<TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
 		<TargetPlatformMinVersion>10.0.19041.0</TargetPlatformMinVersion>
 		<Platforms>x86;x64</Platforms>
 		<RootNamespace>BKAssembly.WinUI</RootNamespace>
-		<RuntimeIdentifiers>win10-x86;win10-x64</RuntimeIdentifiers>
+		<RuntimeIdentifiers>win-x86;win-x64</RuntimeIdentifiers>
 		<UseWinUI>true</UseWinUI>
 	</PropertyGroup>
 
