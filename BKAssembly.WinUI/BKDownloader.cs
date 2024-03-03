@@ -17,20 +17,24 @@ namespace BKAssembly.WinUI;
 
 public class BKDownloader
 {
-    public static void DownloadFile(
+    private static HttpClient _httpClient;
+    public static IAsyncOperationWithProgress<HttpResponseMessage, HttpProgress> DownloadFile(
         Uri uri,
         Action<IAsyncOperationWithProgress<HttpResponseMessage, HttpProgress>, HttpProgress> progress,
         Action<IAsyncOperationWithProgress<HttpResponseMessage, HttpProgress>, AsyncStatus> completed)
     {
         // https://www.cnblogs.com/webabcd/p/3213590.html
         // https://learn.microsoft.com/zh-cn/windows/uwp/networking/httpclient
-        var filter = new HttpBaseProtocolFilter();
-        filter.CacheControl.ReadBehavior = HttpCacheReadBehavior.MostRecent;
-        HttpClient client = new HttpClient(filter);
+        if (_httpClient == null)
+        {
+            var filter = new HttpBaseProtocolFilter();
+            filter.CacheControl.ReadBehavior = HttpCacheReadBehavior.MostRecent;
+            _httpClient = new HttpClient(filter);
+        }
 
         HttpRequestMessage message = new() { RequestUri = uri };
 
-        var result = client.SendRequestAsync(message);
+        var result = _httpClient.SendRequestAsync(message);
         result.Progress = (asyncInfo, progressInfo) =>
         {
             progress(asyncInfo, progressInfo);
@@ -40,5 +44,6 @@ public class BKDownloader
         {
             completed(asyncInfo, asyncStatus);
         };
+        return result;
     }
 }

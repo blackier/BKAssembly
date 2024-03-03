@@ -23,7 +23,8 @@ public class BKHttpClient
         {
             SocketsHttpHandler socket_handler = new SocketsHttpHandler()
             {
-                EnableMultipleHttp2Connections = true
+                EnableMultipleHttp2Connections = true,
+                UseCookies = true,
             };
 
             newHttpClient = new(socket_handler)
