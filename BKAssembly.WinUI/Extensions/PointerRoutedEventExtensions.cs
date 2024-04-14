@@ -24,6 +24,32 @@ public static class PointerRoutedEventExtensions
         return false;
     }
 
+    public static bool IsRightClick(this UIElement sender, PointerRoutedEventArgs e)
+    {
+        if (e.Pointer.PointerDeviceType == PointerDeviceType.Mouse)
+        {
+            PointerPoint ptrPt = e.GetCurrentPoint(sender);
+            if (ptrPt.Properties.IsRightButtonPressed)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static bool IsForwardClick(this UIElement sender, PointerRoutedEventArgs e)
+    {
+        if (e.Pointer.PointerDeviceType == PointerDeviceType.Mouse)
+        {
+            PointerPoint ptrPt = e.GetCurrentPoint(sender);
+            if (ptrPt.Properties.IsXButton2Pressed)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static bool IsBackClick(this UIElement sender, PointerRoutedEventArgs e)
     {
         if (e.Pointer.PointerDeviceType == PointerDeviceType.Mouse)
