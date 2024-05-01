@@ -61,4 +61,19 @@ public static class WindowExtensions
         nonClientInputSrc.ClearRegionRects(NonClientRegionKind.Passthrough);
     }
 
+    public static void ApplyTheme(this Window window, ElementTheme theme)
+    {
+        if (window.Content is FrameworkElement rootElement)
+        {
+            rootElement.RequestedTheme = theme;
+        }
+    }
+
+    public static ElementTheme RequestedTheme(this Window window)
+    {
+        if (window.Content is FrameworkElement rootElement)
+            return rootElement.RequestedTheme;
+
+        return ElementTheme.Default;
+    }
 }
