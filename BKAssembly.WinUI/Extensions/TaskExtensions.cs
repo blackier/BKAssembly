@@ -12,6 +12,6 @@ public static class TaskExtensions
 {
     public static void ContinueInUI(this Task _, DispatcherQueueHandler callback)
     {
-        WindowExtensions.MainWindow.DispatcherQueue?.TryEnqueue(DispatcherQueuePriority.Normal, callback);
+        WindowExtensions.MainWindow?.DispatcherQueue?.TryEnqueue(DispatcherQueuePriority.Normal, callback);
     }
 }
