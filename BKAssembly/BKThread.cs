@@ -16,6 +16,7 @@ public class BKThread : IDisposable
     private AutoResetEvent _waitEvent;
     private ConcurrentQueue<Action> _taskQueue;
     private bool _isStop = false;
+
     public BKThread()
     {
         _thread = new Thread(ThreadProc);
@@ -24,12 +25,14 @@ public class BKThread : IDisposable
         _thread.Start();
         AddToPool(this);
     }
+
     ~BKThread()
     {
         Dispose();
     }
 
     private static void AddToPool(BKThread thread) => _threadPool.Add(thread);
+
     public static void StopThreadPool()
     {
         foreach (var t in _threadPool)
@@ -73,7 +76,8 @@ public class BKThread : IDisposable
     public void Dispose()
     {
         // https://learn.microsoft.com/zh-cn/dotnet/api/system.idisposable?view=net-8.0#definition
-        if (_isStop) return;
+        if (_isStop)
+            return;
 
         _isStop = true;
         _waitEvent.Set();

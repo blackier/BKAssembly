@@ -10,6 +10,7 @@ namespace BKAssembly.WinUI.Extensions;
 public static class WindowExtensions
 {
     public static Window MainWindow { get; set; }
+
     public static IntPtr Handle(this Window window)
     {
         return WinRT.Interop.WindowNative.GetWindowHandle(window);
@@ -39,7 +40,12 @@ public static class WindowExtensions
         IntPtr hMonitor = Win32Interop.GetMonitorFromDisplayId(displayArea.DisplayId);
 
         // Get DPI.
-        int result = BKWindowsAPI.GetDpiForMonitor(hMonitor, BKWindowsAPI.Monitor_DPI_Type.MDT_Default, out uint dpiX, out uint _);
+        int result = BKWindowsAPI.GetDpiForMonitor(
+            hMonitor,
+            BKWindowsAPI.Monitor_DPI_Type.MDT_Default,
+            out uint dpiX,
+            out uint _
+        );
         if (result != 0)
         {
             return 1.0;

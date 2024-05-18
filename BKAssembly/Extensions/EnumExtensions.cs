@@ -9,7 +9,8 @@ namespace BKAssembly.Extensions;
 
 public static class EnumExtensions
 {
-    public static IEnumerable<T> GetTypeList<T>() where T : Enum
+    public static IEnumerable<T> GetTypeList<T>()
+        where T : Enum
     {
         foreach (object item in Enum.GetValues(typeof(T)))
         {
@@ -17,7 +18,8 @@ public static class EnumExtensions
         }
     }
 
-    public static IEnumerable<T> GetTypeList<T>(this T value) where T : Enum
+    public static IEnumerable<T> GetTypeList<T>(this T value)
+        where T : Enum
     {
         foreach (object item in Enum.GetValues(typeof(T)))
         {
@@ -25,7 +27,8 @@ public static class EnumExtensions
         }
     }
 
-    public static T TryParse<T>(int value, T defaultValue) where T : Enum
+    public static T TryParse<T>(int value, T defaultValue)
+        where T : Enum
     {
         if (Enum.IsDefined(typeof(T), value))
         {
@@ -37,7 +40,8 @@ public static class EnumExtensions
         }
     }
 
-    public static T TryParse<T>(string value, T defaultValue) where T : Enum
+    public static T TryParse<T>(string value, T defaultValue)
+        where T : Enum
     {
         if (Enum.IsDefined(typeof(T), value))
         {
@@ -51,7 +55,7 @@ public static class EnumExtensions
 
     public static int ToInt(this Enum value)
     {
-        if(value == null)
+        if (value == null)
             return 0;
         return value.GetHashCode();
     }

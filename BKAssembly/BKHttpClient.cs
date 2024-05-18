@@ -27,10 +27,7 @@ public class BKHttpClient
                 UseCookies = true,
             };
 
-            newHttpClient = new(socket_handler)
-            {
-                DefaultRequestVersion = HttpVersion.Version20
-            };
+            newHttpClient = new(socket_handler) { DefaultRequestVersion = HttpVersion.Version20 };
 
             if (timeout != TimeSpan.Zero)
                 newHttpClient.Timeout = timeout;
@@ -39,5 +36,4 @@ public class BKHttpClient
         }
         return newHttpClient;
     }
-
 }

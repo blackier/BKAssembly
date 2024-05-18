@@ -18,7 +18,8 @@ public static class DependencyObjectExtensions
             //check whether the submitted object provides a bound property
             //that matches the property parameters
             BindingExpression be = BindingOperations.GetBindingExpression(obj, depProperty);
-            if (be != null) be.UpdateSource();
+            if (be != null)
+                be.UpdateSource();
         }
 
         int count = VisualTreeHelper.GetChildrenCount(obj);
@@ -32,13 +33,15 @@ public static class DependencyObjectExtensions
 
     public static DependencyObject GetParentObject(this DependencyObject child)
     {
-        if (child == null) return null;
+        if (child == null)
+            return null;
         ContentElement contentElement = child as ContentElement;
 
         if (contentElement != null)
         {
             DependencyObject parent = ContentOperations.GetParent(contentElement);
-            if (parent != null) return parent;
+            if (parent != null)
+                return parent;
 
             FrameworkContentElement fce = contentElement as FrameworkContentElement;
             return fce != null ? fce.Parent : null;
@@ -48,13 +51,15 @@ public static class DependencyObjectExtensions
         return VisualTreeHelper.GetParent(child);
     }
 
-    public static T FindParent<T>(this DependencyObject child) where T : DependencyObject
+    public static T FindParent<T>(this DependencyObject child)
+        where T : DependencyObject
     {
         //get parent item
         DependencyObject parentObject = GetParentObject(child);
 
         //we've reached the end of the tree
-        if (parentObject == null) return null;
+        if (parentObject == null)
+            return null;
 
         //check if the parent matches the type we're looking for
         T parent = parentObject as T;
@@ -69,10 +74,12 @@ public static class DependencyObjectExtensions
         }
     }
 
-    public static T FindChild<T>(this DependencyObject parent, string childName) where T : DependencyObject
+    public static T FindChild<T>(this DependencyObject parent, string childName)
+        where T : DependencyObject
     {
-        // Confirm parent and childName are valid. 
-        if (parent == null) return null;
+        // Confirm parent and childName are valid.
+        if (parent == null)
+            return null;
 
         T foundChild = null;
 
@@ -87,8 +94,9 @@ public static class DependencyObjectExtensions
                 // recursively drill down the tree
                 foundChild = FindChild<T>(child, childName);
 
-                // If the child is found, break so we do not overwrite the found child. 
-                if (foundChild != null) break;
+                // If the child is found, break so we do not overwrite the found child.
+                if (foundChild != null)
+                    break;
             }
             else if (!string.IsNullOrEmpty(childName))
             {
@@ -112,10 +120,12 @@ public static class DependencyObjectExtensions
         return foundChild;
     }
 
-    public static T FindChild<T>(this DependencyObject parent) where T : DependencyObject
+    public static T FindChild<T>(this DependencyObject parent)
+        where T : DependencyObject
     {
-        // Confirm parent and childName are valid. 
-        if (parent == null) return null;
+        // Confirm parent and childName are valid.
+        if (parent == null)
+            return null;
 
         T foundChild = null;
 
@@ -130,8 +140,9 @@ public static class DependencyObjectExtensions
                 // recursively drill down the tree
                 foundChild = FindChild<T>(child);
 
-                // If the child is found, break so we do not overwrite the found child. 
-                if (foundChild != null) break;
+                // If the child is found, break so we do not overwrite the found child.
+                if (foundChild != null)
+                    break;
             }
             else
             {

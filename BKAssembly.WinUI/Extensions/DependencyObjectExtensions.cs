@@ -1,16 +1,17 @@
-﻿using Microsoft.UI.Xaml.Media;
-using Microsoft.UI.Xaml;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Media;
 
 namespace BKAssembly.WinUI.Extensions;
 
 public static class DependencyObjectExtensions
 {
-    public static IEnumerable<T> FindVisualChildren<T>(this DependencyObject depObj) where T : DependencyObject
+    public static IEnumerable<T> FindVisualChildren<T>(this DependencyObject depObj)
+        where T : DependencyObject
     {
         if (depObj != null)
         {
@@ -30,7 +31,8 @@ public static class DependencyObjectExtensions
         }
     }
 
-    public static T FindVisualChildren<T>(this DependencyObject depObj, string childrenName) where T : FrameworkElement
+    public static T FindVisualChildren<T>(this DependencyObject depObj, string childrenName)
+        where T : FrameworkElement
     {
         if (depObj != null)
         {
@@ -43,11 +45,13 @@ public static class DependencyObjectExtensions
         return null;
     }
 
-    public static T FindParent<T>(this DependencyObject dependencyObject) where T : DependencyObject
+    public static T FindParent<T>(this DependencyObject dependencyObject)
+        where T : DependencyObject
     {
         var parentObject = VisualTreeHelper.GetParent(dependencyObject);
 
-        if (parentObject == null) return null;
+        if (parentObject == null)
+            return null;
 
         var parent = parentObject as T;
         return parent ?? FindParent<T>(parentObject);

@@ -17,5 +17,4 @@ public static class SizeExtensions
     {
         return new System.Windows.Size(size.Width, size.Height);
     }
-
 }

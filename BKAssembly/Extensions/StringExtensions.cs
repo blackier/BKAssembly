@@ -32,7 +32,8 @@ public static class StringExtensions
         return result;
     }
 
-    public static T ToEnum<T>(this string str, T defaultValue) where T : Enum
+    public static T ToEnum<T>(this string str, T defaultValue)
+        where T : Enum
     {
         return EnumExtensions.TryParse(str, defaultValue);
     }

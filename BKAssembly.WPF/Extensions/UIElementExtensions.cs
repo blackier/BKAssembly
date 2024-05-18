@@ -9,12 +9,16 @@ namespace BKAssembly.WPF.Extensions;
 
 public static class UIElementExtensions
 {
-    public static T FindElementFromPoint<T>(this UIElement reference, Point point) where T : DependencyObject
+    public static T FindElementFromPoint<T>(this UIElement reference, Point point)
+        where T : DependencyObject
     {
         DependencyObject element = reference.InputHitTest(point) as DependencyObject;
-        if (element == null) return null;
-        else if (element is T) return (T)element;
-        else return element.FindParent<T>();
+        if (element == null)
+            return null;
+        else if (element is T)
+            return (T)element;
+        else
+            return element.FindParent<T>();
     }
 
     public static bool IsMouseOver(this UIElement element, IntPtr lParam)

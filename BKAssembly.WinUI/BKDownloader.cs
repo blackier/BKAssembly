@@ -18,10 +18,12 @@ namespace BKAssembly.WinUI;
 public class BKDownloader
 {
     private static HttpClient _httpClient;
+
     public static IAsyncOperationWithProgress<HttpResponseMessage, HttpProgress> DownloadFile(
         Uri uri,
         Action<IAsyncOperationWithProgress<HttpResponseMessage, HttpProgress>, HttpProgress> progress,
-        Action<IAsyncOperationWithProgress<HttpResponseMessage, HttpProgress>, AsyncStatus> completed)
+        Action<IAsyncOperationWithProgress<HttpResponseMessage, HttpProgress>, AsyncStatus> completed
+    )
     {
         // https://www.cnblogs.com/webabcd/p/3213590.html
         // https://learn.microsoft.com/zh-cn/windows/uwp/networking/httpclient
@@ -31,7 +33,9 @@ public class BKDownloader
             filter.CacheControl.ReadBehavior = HttpCacheReadBehavior.MostRecent;
             _httpClient = new HttpClient(filter);
             _httpClient.DefaultRequestHeaders.UserAgent.Clear();
-            _httpClient.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.6045.160 Safari/537.36");
+            _httpClient.DefaultRequestHeaders.UserAgent.ParseAdd(
+                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.6045.160 Safari/537.36"
+            );
         }
 
         HttpRequestMessage message = new() { RequestUri = uri };

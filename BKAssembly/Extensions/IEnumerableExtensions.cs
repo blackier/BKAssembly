@@ -19,7 +19,11 @@ public static class IEnumerableExtensions
         return source != null && source.Count() > 0;
     }
 
-    public static bool TryGet<TSource>(this IEnumerable<TSource> source, int index, [MaybeNullWhen(false)] out TSource value)
+    public static bool TryGet<TSource>(
+        this IEnumerable<TSource> source,
+        int index,
+        [MaybeNullWhen(false)] out TSource value
+    )
     {
         if (index >= 0 && index < source.Count())
         {

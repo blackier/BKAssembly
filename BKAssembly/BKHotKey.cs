@@ -7,6 +7,7 @@ public class BKHotKey
 {
     [DllImport("user32.dll")]
     private static extern bool RegisterHotKey(IntPtr hWnd, int id, uint fsModifiers, uint vk);
+
     [DllImport("user32.dll")]
     private static extern bool UnregisterHotKey(IntPtr hWnd, int id);
 
@@ -24,9 +25,9 @@ public class BKHotKey
     {
         return RegisterHotKey(hWnd, id, fsModifiers, vk);
     }
+
     public static bool UnRegister(IntPtr hWnd, int id)
     {
         return UnregisterHotKey(hWnd, id);
     }
-
 }

@@ -1,8 +1,9 @@
 // This example demonstrates the DateTime.DayOfWeek property
 using System;
-using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+
 public static class DateTimeExtensions
 {
     // https://stackoverflow.com/questions/24245523/getting-the-first-and-last-day-of-a-month-using-a-given-datetime-object
@@ -28,7 +29,10 @@ public static class DateTimeExtensions
         for (DateTime day = value.FirstDayOfMonth(); day < value.LastDayOfMonth(); day = day.AddDays(7))
             weeks.Add(day.DaysOfWeek(firstDayOfWeek).First(), day.DaysOfWeek(firstDayOfWeek).Last());
         if (weeks.Last().Value < value.LastDayOfMonth())
-            weeks.Add(value.LastDayOfMonth().DaysOfWeek(firstDayOfWeek).First(), value.LastDayOfMonth().DaysOfWeek(firstDayOfWeek).Last());
+            weeks.Add(
+                value.LastDayOfMonth().DaysOfWeek(firstDayOfWeek).First(),
+                value.LastDayOfMonth().DaysOfWeek(firstDayOfWeek).Last()
+            );
         return weeks;
     }
 
@@ -55,6 +59,7 @@ public static class DateTimeExtensions
     {
         return value.AddDays(-1);
     }
+
     public static DateTime NextDay(this DateTime value)
     {
         return value.AddDays(1);
@@ -64,6 +69,7 @@ public static class DateTimeExtensions
     {
         return value.AddDays(-7);
     }
+
     public static DateTime NextWeek(this DateTime value)
     {
         return value.AddDays(7);
@@ -73,17 +79,19 @@ public static class DateTimeExtensions
     {
         return value.AddMonths(-1);
     }
+
     public static DateTime NextMonth(this DateTime value)
     {
         return value.AddMonths(1);
     }
+
     public static DateTime BeforYear(this DateTime value)
     {
         return value.AddYears(-1);
     }
+
     public static DateTime NextYear(this DateTime value)
     {
         return value.AddYears(1);
     }
-
 }

@@ -9,7 +9,6 @@ namespace BKAssembly;
 
 public class BKWindowsAPI
 {
-
     [DllImport("user32.dll", SetLastError = true)]
     public static extern bool SetCursorPos(int X, int Y);
 
@@ -23,7 +22,7 @@ public class BKWindowsAPI
         MDT_Raw_DPI = 2,
         MDT_Default = MDT_Effective_DPI
     }
+
     [DllImport("Shcore.dll", SetLastError = true)]
     public static extern int GetDpiForMonitor(IntPtr hmonitor, Monitor_DPI_Type dpiType, out uint dpiX, out uint dpiY);
-
 }

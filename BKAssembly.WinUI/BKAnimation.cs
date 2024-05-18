@@ -1,12 +1,12 @@
-﻿using Microsoft.UI.Composition;
-using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Hosting;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.UI.Composition;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Hosting;
 
 namespace BKAssembly.WinUI;
 
@@ -17,7 +17,6 @@ public class BKAnimation
     {
         Visual vs = ElementCompositionPreview.GetElementVisual(element);
         Compositor compositor = vs.Compositor;
-
 
         var animation = compositor.CreateVector3KeyFrameAnimation();
         animation.InsertExpressionKeyFrame(0f, "this.StartingValue");
@@ -36,7 +35,6 @@ public class BKAnimation
     {
         Visual vs = ElementCompositionPreview.GetElementVisual(element);
         Compositor compositor = vs.Compositor;
-
 
         var animation = compositor.CreateScalarKeyFrameAnimation();
         animation.InsertExpressionKeyFrame(0f, "this.StartingValue");

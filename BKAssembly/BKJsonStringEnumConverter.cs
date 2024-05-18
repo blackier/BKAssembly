@@ -11,16 +11,20 @@ using System.Threading.Tasks;
 
 namespace BKAssembly;
 
-public class BKJsonStringEnumConverter<T> : JsonConverter<T> where T : Enum
+public class BKJsonStringEnumConverter<T> : JsonConverter<T>
+    where T : Enum
 {
     private readonly T _defaultValue;
     private readonly JsonStringEnumConverter _converter;
 
-    public BKJsonStringEnumConverter() : this(default(T), null, true)
-    {
-    }
+    public BKJsonStringEnumConverter()
+        : this(default(T), null, true) { }
 
-    public BKJsonStringEnumConverter(T defaultValue, JsonNamingPolicy? namingPolicy = null, bool allowIntegerValues = true)
+    public BKJsonStringEnumConverter(
+        T defaultValue,
+        JsonNamingPolicy? namingPolicy = null,
+        bool allowIntegerValues = true
+    )
     {
         _defaultValue = defaultValue;
         _converter = new JsonStringEnumConverter(namingPolicy, allowIntegerValues);

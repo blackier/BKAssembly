@@ -63,7 +63,8 @@ public static class BitmapExtensions
         if (bmp11.Size != bmp22.Size)
             return 0;
 
-        string p1_dhash, p2_dhash;
+        string p1_dhash,
+            p2_dhash;
         using (var p1 = bmp11.Resize(9, 8))
         {
             p1_dhash = p1.ToDHash();

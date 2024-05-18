@@ -30,16 +30,24 @@ public static class BKMisc
         return srcBuilder.ToString();
     }
 
-    public static string JsonSerialize<T>(T obj, bool ignoreNullValues = true, bool writeIndented = true, JavaScriptEncoder? charsetEncoder = null)
+    public static string JsonSerialize<T>(
+        T obj,
+        bool ignoreNullValues = true,
+        bool writeIndented = true,
+        JavaScriptEncoder? charsetEncoder = null
+    )
     {
         if (charsetEncoder == null)
             charsetEncoder = JavaScriptEncoder.Create(UnicodeRanges.All);
-        JsonSerializerOptions options = new()
-        {
-            DefaultIgnoreCondition = ignoreNullValues ? JsonIgnoreCondition.WhenWritingNull : JsonIgnoreCondition.Never,
-            WriteIndented = writeIndented,
-            Encoder = charsetEncoder
-        };
+        JsonSerializerOptions options =
+            new()
+            {
+                DefaultIgnoreCondition = ignoreNullValues
+                    ? JsonIgnoreCondition.WhenWritingNull
+                    : JsonIgnoreCondition.Never,
+                WriteIndented = writeIndented,
+                Encoder = charsetEncoder
+            };
         return JsonSerializer.Serialize<T>(obj, options);
     }
 

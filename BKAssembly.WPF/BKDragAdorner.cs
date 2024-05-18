@@ -23,7 +23,8 @@ public class BKDragAdorner : Adorner
     Action<System.Drawing.RectangleF> _onDrag;
 
     //必须生成构造函数
-    public BKDragAdorner(UIElement adornedElement, Action<System.Drawing.RectangleF> onDrag = null) : base(adornedElement)
+    public BKDragAdorner(UIElement adornedElement, Action<System.Drawing.RectangleF> onDrag = null)
+        : base(adornedElement)
     {
         _onDrag = onDrag;
 
@@ -33,19 +34,19 @@ public class BKDragAdorner : Adorner
         Thumb leftThumb = new Thumb();
         leftThumb.HorizontalAlignment = HorizontalAlignment.Left;
         leftThumb.VerticalAlignment = VerticalAlignment.Stretch;
-        leftThumb.Cursor = Cursors.SizeWE;//获取双向水平（西/东）大小调整光标
+        leftThumb.Cursor = Cursors.SizeWE; //获取双向水平（西/东）大小调整光标
         Thumb topThumb = new Thumb();
         topThumb.HorizontalAlignment = HorizontalAlignment.Stretch;
         topThumb.VerticalAlignment = VerticalAlignment.Top;
-        topThumb.Cursor = Cursors.SizeNS;//获取双向垂直（北/南）大小调整光标
+        topThumb.Cursor = Cursors.SizeNS; //获取双向垂直（北/南）大小调整光标
         Thumb rightThumb = new Thumb();
         rightThumb.HorizontalAlignment = HorizontalAlignment.Right;
         rightThumb.VerticalAlignment = VerticalAlignment.Stretch;
-        rightThumb.Cursor = Cursors.SizeWE;//获取双向水平（西/东）大小调整光标
+        rightThumb.Cursor = Cursors.SizeWE; //获取双向水平（西/东）大小调整光标
         Thumb bottomThumb = new Thumb();
         bottomThumb.HorizontalAlignment = HorizontalAlignment.Stretch;
         bottomThumb.VerticalAlignment = VerticalAlignment.Bottom;
-        bottomThumb.Cursor = Cursors.SizeNS;//获取双向垂直（北/南）大小调整光标
+        bottomThumb.Cursor = Cursors.SizeNS; //获取双向垂直（北/南）大小调整光标
         SetLineThumbStyle(leftThumb);
         SetLineThumbStyle(topThumb);
         SetLineThumbStyle(rightThumb);
@@ -53,19 +54,19 @@ public class BKDragAdorner : Adorner
         Thumb lefTopThumb = new Thumb();
         lefTopThumb.HorizontalAlignment = HorizontalAlignment.Left;
         lefTopThumb.VerticalAlignment = VerticalAlignment.Top;
-        lefTopThumb.Cursor = Cursors.SizeNWSE;//获取双向对角线（西北/东南）大小调整光标
+        lefTopThumb.Cursor = Cursors.SizeNWSE; //获取双向对角线（西北/东南）大小调整光标
         Thumb rightTopThumb = new Thumb();
         rightTopThumb.HorizontalAlignment = HorizontalAlignment.Right;
         rightTopThumb.VerticalAlignment = VerticalAlignment.Top;
-        rightTopThumb.Cursor = Cursors.SizeNESW;//获取双向对角线（东北/西南）大小调整光标
+        rightTopThumb.Cursor = Cursors.SizeNESW; //获取双向对角线（东北/西南）大小调整光标
         Thumb rightBottomThumb = new Thumb();
         rightBottomThumb.HorizontalAlignment = HorizontalAlignment.Right;
         rightBottomThumb.VerticalAlignment = VerticalAlignment.Bottom;
-        rightBottomThumb.Cursor = Cursors.SizeNWSE;//获取双向对角线（西北/东南）大小调整光标
+        rightBottomThumb.Cursor = Cursors.SizeNWSE; //获取双向对角线（西北/东南）大小调整光标
         Thumb leftbottomThumb = new Thumb();
         leftbottomThumb.HorizontalAlignment = HorizontalAlignment.Left;
         leftbottomThumb.VerticalAlignment = VerticalAlignment.Bottom;
-        leftbottomThumb.Cursor = Cursors.SizeNESW;//获取双向对角线（东北/西南）大小调整光标
+        leftbottomThumb.Cursor = Cursors.SizeNESW; //获取双向对角线（东北/西南）大小调整光标
         SetPointThumbStyle(lefTopThumb);
         SetPointThumbStyle(rightTopThumb);
         SetPointThumbStyle(rightBottomThumb);
@@ -87,6 +88,7 @@ public class BKDragAdorner : Adorner
 
         _visuals.Add(_contentPresenter);
     }
+
     private void SetLineThumbStyle(Thumb thumb)
     {
         Thickness borderThickness = new Thickness(0, 0, 0, 0);
@@ -131,6 +133,7 @@ public class BKDragAdorner : Adorner
 
         thumb.DragDelta += Thumb_DragDelta;
     }
+
     private void SetPointThumbStyle(Thumb thumb)
     {
         Thickness borderThickness = new Thickness(0, 0, 0, 0);
@@ -155,13 +158,11 @@ public class BKDragAdorner : Adorner
         {
             borderThickness.Bottom = lineThickness;
         }
-        thumb.Template = new ControlTemplate(typeof(Thumb))
-        {
-            VisualTree = GetFactory(borderThickness)
-        };
+        thumb.Template = new ControlTemplate(typeof(Thumb)) { VisualTree = GetFactory(borderThickness) };
 
         thumb.DragDelta += Thumb_DragDelta;
     }
+
     private FrameworkElementFactory GetFactory(Thickness thickness)
     {
         FrameworkElementFactory fef = new FrameworkElementFactory(typeof(Border));
@@ -209,10 +210,12 @@ public class BKDragAdorner : Adorner
     {
         return _visuals[index];
     }
+
     protected override int VisualChildrenCount
     {
         get { return _visuals.Count; }
     }
+
     protected override Size MeasureOverride(Size constraint)
     {
         _contentPresenter.Measure(constraint);
@@ -222,7 +225,9 @@ public class BKDragAdorner : Adorner
     protected override Size ArrangeOverride(Size finalSize)
     {
         //布局位置和大小
-        _contentPresenter.Arrange(new Rect(0, 0, this.AdornedElement.RenderSize.Width, this.AdornedElement.RenderSize.Height));
+        _contentPresenter.Arrange(
+            new Rect(0, 0, this.AdornedElement.RenderSize.Width, this.AdornedElement.RenderSize.Height)
+        );
         return _contentPresenter.DesiredSize;
     }
 }
