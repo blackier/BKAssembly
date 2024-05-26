@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.UI.Composition;
@@ -67,13 +68,14 @@ public class MicaSystemBackdrop : ISystemBackdrop
         }
 
         // Set configuration.
-        _configurationSource = GetDefaultSystemBackdropConfiguration(connectedTarget, xamlRoot);
+        _configurationSource = new(); // GetDefaultSystemBackdropConfiguration(connectedTarget, xamlRoot);
+        _configurationSource.IsInputActive = true;
         _configurationSource.Theme = Theme;
 
         // Add target.
         _micaController = new MicaController() { Kind = (MicaKind)Kind };
-        _micaController.SetSystemBackdropConfiguration(_configurationSource);
         _micaController.AddSystemBackdropTarget(connectedTarget);
+        _micaController.SetSystemBackdropConfiguration(_configurationSource);
     }
 
     protected override void OnTargetDisconnected(ICompositionSupportsSystemBackdrop disconnectedTarget)
@@ -85,14 +87,14 @@ public class MicaSystemBackdrop : ISystemBackdrop
         _micaController = null;
     }
 
-    protected override void OnDefaultSystemBackdropConfigurationChanged(
-        ICompositionSupportsSystemBackdrop target,
-        XamlRoot xamlRoot
-    )
-    {
-        //_configurationSource = new SystemBackdropConfiguration() { Theme = _configurationSource.Theme };
-        //_micaController.SetSystemBackdropConfiguration(_configurationSource);
-    }
+    //protected override void OnDefaultSystemBackdropConfigurationChanged(
+    //    ICompositionSupportsSystemBackdrop target,
+    //    XamlRoot xamlRoot
+    //)
+    //{
+    //    _configurationSource = new SystemBackdropConfiguration() { Theme = _configurationSource.Theme };
+    //    _micaController.SetSystemBackdropConfiguration(_configurationSource);
+    //}
 
     public override void ChangeKind(object kind)
     {
@@ -116,13 +118,14 @@ public class AcrylicSystemBackdrop : ISystemBackdrop
         }
 
         // Set configuration.
-        _configurationSource = GetDefaultSystemBackdropConfiguration(connectedTarget, xamlRoot);
+        _configurationSource = new(); // GetDefaultSystemBackdropConfiguration(connectedTarget, xamlRoot);
+        _configurationSource.IsInputActive = true;
         _configurationSource.Theme = Theme;
 
         // Add target.
         _acrylicController = new DesktopAcrylicController() { Kind = (DesktopAcrylicKind)Kind };
-        _acrylicController.SetSystemBackdropConfiguration(_configurationSource);
         _acrylicController.AddSystemBackdropTarget(connectedTarget);
+        _acrylicController.SetSystemBackdropConfiguration(_configurationSource);
     }
 
     protected override void OnTargetDisconnected(ICompositionSupportsSystemBackdrop disconnectedTarget)
@@ -134,14 +137,14 @@ public class AcrylicSystemBackdrop : ISystemBackdrop
         _acrylicController = null;
     }
 
-    protected override void OnDefaultSystemBackdropConfigurationChanged(
-        ICompositionSupportsSystemBackdrop target,
-        XamlRoot xamlRoot
-    )
-    {
-        //_configurationSource = new SystemBackdropConfiguration() { Theme = _configurationSource.Theme };
-        //_micaController.SetSystemBackdropConfiguration(_configurationSource);
-    }
+    //protected override void OnDefaultSystemBackdropConfigurationChanged(
+    //    ICompositionSupportsSystemBackdrop target,
+    //    XamlRoot xamlRoot
+    //)
+    //{
+    //    //_configurationSource = new SystemBackdropConfiguration() { Theme = _configurationSource.Theme };
+    //    //_micaController.SetSystemBackdropConfiguration(_configurationSource);
+    //}
 
     public override void ChangeKind(object kind)
     {
@@ -160,7 +163,6 @@ public class BKThemeHelper
         _window = window;
         _window.Activated += Window_Activated;
         ((FrameworkElement)_window.Content).ActualThemeChanged += Window_ActualThemeChanged;
-        ;
     }
 
     private void Window_Activated(object sender, WindowActivatedEventArgs args)
