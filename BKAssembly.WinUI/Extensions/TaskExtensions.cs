@@ -10,7 +10,7 @@ namespace BKAssembly.WinUI.Extensions;
 
 public static class TaskExtensions
 {
-    public static void ContinueInUI(this Task _, DispatcherQueueHandler callback)
+    public static void DispatchToUI(DispatcherQueueHandler callback)
     {
         WindowExtensions.MainWindow?.DispatcherQueue?.TryEnqueue(DispatcherQueuePriority.Normal, callback);
     }
