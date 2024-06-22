@@ -15,7 +15,7 @@ public class BKThread : IDisposable
     private Thread _thread;
     private AutoResetEvent _waitEvent;
     private ConcurrentQueue<Action> _taskQueue;
-    private bool _isStop = false;
+    private bool _disposed = false;
 
     public BKThread()
     {
@@ -37,16 +37,16 @@ public class BKThread : IDisposable
     {
         foreach (var t in _threadPool)
         {
-            t.Stop();
+            t.Dispose();
         }
         _threadPool.Clear();
     }
 
     private void ThreadProc()
     {
-        while (!_isStop)
+        while (!_disposed)
         {
-            while (!_isStop && _taskQueue.TryDequeue(out Action? task))
+            while (!_disposed && _taskQueue.TryDequeue(out Action? task))
                 task();
             _waitEvent.WaitOne();
         }
@@ -68,18 +68,13 @@ public class BKThread : IDisposable
         return _taskQueue.IsEmpty;
     }
 
-    public void Stop()
-    {
-        Dispose();
-    }
-
     public void Dispose()
     {
         // https://learn.microsoft.com/zh-cn/dotnet/api/system.idisposable?view=net-8.0#definition
-        if (_isStop)
+        if (_disposed)
             return;
 
-        _isStop = true;
+        _disposed = true;
         _waitEvent.Set();
         GC.SuppressFinalize(this);
     }
