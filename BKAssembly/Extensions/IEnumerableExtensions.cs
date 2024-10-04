@@ -11,12 +11,12 @@ public static class IEnumerableExtensions
 {
     public static bool IsNullOrEmpty<TSource>(this IEnumerable<TSource> source)
     {
-        return source == null || source.Count() == 0;
+        return source == null || !source.Any();
     }
 
     public static bool IsNotNullOrEmpty<TSource>(this IEnumerable<TSource> source)
     {
-        return source != null && source.Count() > 0;
+        return source != null && source.Any();
     }
 
     public static bool TryGet<TSource>(
