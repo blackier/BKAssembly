@@ -84,4 +84,10 @@ public static class BKMisc
     {
         return DateTime.Now - new DateTime(1970, 1, 1, 0, 0, 0, 0);
     }
+
+    public static T? CloneObject<T>(T theObject)
+    {
+        string jsonData = JsonSerialize(theObject);
+        return JsonDeserialize<T>(jsonData);
+    }
 }

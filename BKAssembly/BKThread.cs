@@ -26,11 +26,6 @@ public class BKThread : IDisposable
         AddToPool(this);
     }
 
-    ~BKThread()
-    {
-        Dispose();
-    }
-
     private static void AddToPool(BKThread thread) => _threadPool.Add(thread);
 
     public static void StopThreadPool()
@@ -61,11 +56,6 @@ public class BKThread : IDisposable
     public void ClearTask()
     {
         _taskQueue.Clear();
-    }
-
-    public bool IsIdle()
-    {
-        return _taskQueue.IsEmpty;
     }
 
     public void Dispose()

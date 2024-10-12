@@ -13,11 +13,6 @@ public static class StringExtensions
         return string.IsNullOrEmpty(str);
     }
 
-    public static bool IsNotNullOrEmpty(this string str)
-    {
-        return !string.IsNullOrEmpty(str);
-    }
-
     public static bool IsImage(this string str)
     {
         if (str.EndsWith(".jpg", StringComparison.OrdinalIgnoreCase))

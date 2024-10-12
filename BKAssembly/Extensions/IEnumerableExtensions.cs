@@ -14,11 +14,6 @@ public static class IEnumerableExtensions
         return source == null || !source.Any();
     }
 
-    public static bool IsNotNullOrEmpty<TSource>(this IEnumerable<TSource> source)
-    {
-        return source != null && source.Any();
-    }
-
     public static bool TryGet<TSource>(
         this IEnumerable<TSource> source,
         int index,
