@@ -10,8 +10,6 @@ namespace BKAssembly;
 
 public class BKThread : IDisposable
 {
-    private static List<BKThread> _threadPool = new();
-
     private Thread _thread;
     private AutoResetEvent _waitEvent;
     private ConcurrentQueue<Action> _taskQueue;
@@ -23,18 +21,6 @@ public class BKThread : IDisposable
         _waitEvent = new AutoResetEvent(false);
         _taskQueue = new ConcurrentQueue<Action>();
         _thread.Start();
-        AddToPool(this);
-    }
-
-    private static void AddToPool(BKThread thread) => _threadPool.Add(thread);
-
-    public static void StopThreadPool()
-    {
-        foreach (var t in _threadPool)
-        {
-            t.Dispose();
-        }
-        _threadPool.Clear();
     }
 
     private void ThreadProc()
