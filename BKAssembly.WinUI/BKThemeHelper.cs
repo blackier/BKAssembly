@@ -9,7 +9,7 @@ using Microsoft.UI.Composition.SystemBackdrops;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Media;
 
-namespace BKGalMgr.Helpers;
+namespace BKAssembly.WinUI;
 
 // https://learn.microsoft.com/zh-cn/windows/apps/windows-app-sdk/system-backdrop-controller
 // https://learn.microsoft.com/zh-cn/windows/windows-app-sdk/api/winrt/microsoft.ui.xaml.media.systembackdrop
@@ -68,14 +68,13 @@ public class MicaSystemBackdrop : ISystemBackdrop
         }
 
         // Set configuration.
-        _configurationSource = new(); // GetDefaultSystemBackdropConfiguration(connectedTarget, xamlRoot);
-        _configurationSource.IsInputActive = true;
+        _configurationSource = GetDefaultSystemBackdropConfiguration(connectedTarget, xamlRoot);
         _configurationSource.Theme = Theme;
 
         // Add target.
         _micaController = new MicaController() { Kind = (MicaKind)Kind };
-        _micaController.AddSystemBackdropTarget(connectedTarget);
         _micaController.SetSystemBackdropConfiguration(_configurationSource);
+        _micaController.AddSystemBackdropTarget(connectedTarget);
     }
 
     protected override void OnTargetDisconnected(ICompositionSupportsSystemBackdrop disconnectedTarget)
@@ -87,14 +86,14 @@ public class MicaSystemBackdrop : ISystemBackdrop
         _micaController = null;
     }
 
-    //protected override void OnDefaultSystemBackdropConfigurationChanged(
-    //    ICompositionSupportsSystemBackdrop target,
-    //    XamlRoot xamlRoot
-    //)
-    //{
-    //    _configurationSource = new SystemBackdropConfiguration() { Theme = _configurationSource.Theme };
-    //    _micaController.SetSystemBackdropConfiguration(_configurationSource);
-    //}
+    protected override void OnDefaultSystemBackdropConfigurationChanged(
+        ICompositionSupportsSystemBackdrop target,
+        XamlRoot xamlRoot
+    )
+    {
+        //_configurationSource = new SystemBackdropConfiguration() { Theme = _configurationSource.Theme };
+        //_micaController.SetSystemBackdropConfiguration(_configurationSource);
+    }
 
     public override void ChangeKind(object kind)
     {
@@ -118,14 +117,13 @@ public class AcrylicSystemBackdrop : ISystemBackdrop
         }
 
         // Set configuration.
-        _configurationSource = new(); // GetDefaultSystemBackdropConfiguration(connectedTarget, xamlRoot);
-        _configurationSource.IsInputActive = true;
+        _configurationSource = GetDefaultSystemBackdropConfiguration(connectedTarget, xamlRoot);
         _configurationSource.Theme = Theme;
 
         // Add target.
         _acrylicController = new DesktopAcrylicController() { Kind = (DesktopAcrylicKind)Kind };
-        _acrylicController.AddSystemBackdropTarget(connectedTarget);
         _acrylicController.SetSystemBackdropConfiguration(_configurationSource);
+        _acrylicController.AddSystemBackdropTarget(connectedTarget);
     }
 
     protected override void OnTargetDisconnected(ICompositionSupportsSystemBackdrop disconnectedTarget)
@@ -137,14 +135,14 @@ public class AcrylicSystemBackdrop : ISystemBackdrop
         _acrylicController = null;
     }
 
-    //protected override void OnDefaultSystemBackdropConfigurationChanged(
-    //    ICompositionSupportsSystemBackdrop target,
-    //    XamlRoot xamlRoot
-    //)
-    //{
-    //    //_configurationSource = new SystemBackdropConfiguration() { Theme = _configurationSource.Theme };
-    //    //_micaController.SetSystemBackdropConfiguration(_configurationSource);
-    //}
+    protected override void OnDefaultSystemBackdropConfigurationChanged(
+        ICompositionSupportsSystemBackdrop target,
+        XamlRoot xamlRoot
+    )
+    {
+        //_configurationSource = new SystemBackdropConfiguration() { Theme = _configurationSource.Theme };
+        //_micaController.SetSystemBackdropConfiguration(_configurationSource);
+    }
 
     public override void ChangeKind(object kind)
     {
@@ -161,13 +159,7 @@ public class BKThemeHelper
     public BKThemeHelper(Window window)
     {
         _window = window;
-        _window.Activated += Window_Activated;
         ((FrameworkElement)_window.Content).ActualThemeChanged += Window_ActualThemeChanged;
-    }
-
-    private void Window_Activated(object sender, WindowActivatedEventArgs args)
-    {
-        _systemBackdrop?.WindowActivated(sender, args);
     }
 
     private void Window_ActualThemeChanged(FrameworkElement sender, object args)
